@@ -1,0 +1,66 @@
+﻿@model IEnumerable<TicketBook.DataAccessLayer.DomainModel.Flight>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArivalTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartureTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AvaliableTicket)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Airplane)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureCity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArivalTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvaliableTicket)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Airplane.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalCity.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureCity.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

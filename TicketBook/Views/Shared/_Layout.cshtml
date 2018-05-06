@@ -33,6 +33,21 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" style="color: crimson " data-toggle="dropdown" href="#">
+                                Tables
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Airplanes" asp-action="Index">Airplanes</a></li>
+                                <li><a asp-area="" asp-controller="Cities" asp-action="Index">Cities</a></li>
+                                <li><a asp-area="" asp-controller="Flights" asp-action="Index">Flights</a></li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
