@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using TicketBook.BusinessLayer;
+using TicketBook.DataAccessLayer;
+using TicketBook.Data;
 
 namespace TicketBook
 {
@@ -29,14 +31,37 @@ namespace TicketBook
                 {
                     var userManger = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    var uowService = services.GetRequiredService<ApplicationUnitOfWork>();
 
                     RoleInitializer.InitializeAsync(userManger, rolesManager);
+                    //var context = services.GetRequiredService<ApplicationDbContext>();
+
+                   //new InitialFlights().CreateFlightsEveryWednsday(context);
+
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
+
+
+                try
+                {
+                    var uowService = services.GetRequiredService<ApplicationUnitOfWork>();
+
+                    //FlightsInitalizer.InitializeAsync(uowService);
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+
+                    //new InitialFlights().CreateFlightsEveryWednsday(context);
+
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
+
                 host.Run();
             }
         }

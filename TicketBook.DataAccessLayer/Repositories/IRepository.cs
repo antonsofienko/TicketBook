@@ -10,8 +10,9 @@ namespace TicketBook.DataAccessLayer.Repositories
         void Add(T item);
         void Remove(T item);
         void Update(T item);
-        T GetById(int id);
+        T Find(Predicate<T> predicate);
 
+        //object Find(T item);
         IQueryable<T> AllEntities { get; }
     }
 }

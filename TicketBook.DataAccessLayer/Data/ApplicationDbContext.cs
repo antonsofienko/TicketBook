@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TicketBook.DataAccessLayer.DomainModel;
+using TicketBook.DataAccessLayer;
 
 namespace TicketBook.Data
 {
@@ -13,8 +14,21 @@ namespace TicketBook.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
+            if (!Flights.Any())
+            {
+                InitalizeFlightTableByRandomValue();
+            }
+        }
+        public async Task InitalizeFlightTableByRandomValue()
+        {
+              await FlightsInitalizer.InitializeAsync(this);
         }
 
+        public  async Task<int> SaveAsync()
+        {
+            return await this.SaveChangesAsync();
+        }
         public DbSet<Airplane> Airplanes { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Flight> Flights { get; set; }
@@ -44,7 +58,9 @@ namespace TicketBook.Data
 
             builder.Entity<Flight>()
                 .HasOne(c => c.ArrivalCity)
-                .WithMany(f => f.FlightsAsArrival).OnDelete(DeleteBehavior.Restrict);
+                .WithMany(f => f.FlightsAsArrival)
+                //.HasForeignKey<City>(c=>c.ArrivalCity)
+                .OnDelete(DeleteBehavior.Restrict);
             ;// .HasForeignKey(k => k.ArrivalCityId);
 
            // ---------------------------

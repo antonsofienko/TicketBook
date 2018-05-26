@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TicketBook.Data;
+using TicketBook.DataAccessLayer;
+using Microsoft.AspNetCore.Http;
 
 namespace TicketBook
 {
@@ -23,13 +25,14 @@ namespace TicketBook
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
-            //services.AddTransient<IEmailSender, EmailSender>();
-
+            services.AddSingleton<IUnitOfWork, ApplicationUnitOfWork>();
+            
             services.AddMvc();
         }
 

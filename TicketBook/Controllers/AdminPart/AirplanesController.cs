@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TicketBook.Controllers.AdminPart
 {
+
     [Route("admin/[controller]/[action]")]
     [Authorize(Roles = "admin")]
     public class AirplanesController : Controller
@@ -57,7 +58,7 @@ namespace TicketBook.Controllers.AdminPart
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CompanyName,SeatingPlace")] Airplane airplane)
+        public async Task<IActionResult> Create([Bind("Id,Name,SeatingPlace")] Airplane airplane)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +90,7 @@ namespace TicketBook.Controllers.AdminPart
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CompanyName,SeatingPlace")] Airplane airplane)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,SeatingPlace")] Airplane airplane)
         {
             if (id != airplane.Id)
             {

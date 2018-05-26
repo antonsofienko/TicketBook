@@ -8,19 +8,31 @@ namespace TicketBook.DataAccessLayer.Repositories
 {
   public abstract  class RepositoryAbs<T>:IRepository<T> where T:class
     {
-        private DbContext dbContext;
+        private readonly DbContext dbContext;
+        private object key = new object();
         public RepositoryAbs(DbContext context)
         {
             dbContext = context;
         }
         public IQueryable<T> AllEntities
         {
-            get => dbContext.Set<T>();
+            get
+            {
+                dbContext.Set<T>().Load();
+                return dbContext.Set<T>();
+            }
         }
 
-        public T GetById(int id)
+        public T Find(Predicate<T> predicate)
         {
-            return dbContext.Set<T>().Find(id);
+            List<T> list;
+            lock (key)
+            {
+                list = dbContext.Set<T>().ToList();
+            }
+           
+       
+            return list.Find(predicate);
         }
 
         public void Add(T item)
@@ -37,5 +49,10 @@ namespace TicketBook.DataAccessLayer.Repositories
         {
             dbContext.Entry(item).State = EntityState.Modified;
         }
+
+        //public object Find(Type entityType, params object[] keyValue)
+        //{
+        //    return dbContext.Find(entityType, keyValue);
+        //}
     }
 }

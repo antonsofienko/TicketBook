@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TicketBook.Data;
 using TicketBook.DataAccessLayer.DomainModel;
 using TicketBook.DataAccessLayer.Repositories;
 
@@ -9,7 +10,7 @@ namespace TicketBook.DataAccessLayer
 {
  public   class ApplicationUnitOfWork:IDisposable,IUnitOfWork
     {
-        private DbContext db;
+        private readonly ApplicationDbContext db;
 
 
         private AirplaneRepository airplaneRepository;
@@ -20,6 +21,16 @@ namespace TicketBook.DataAccessLayer
         private TicketRepository ticketRepository;
         private UserRepository userRepository;
         private OrderRepository orderRepository;
+
+
+        public ApplicationUnitOfWork(DbContextOptions<ApplicationDbContext> options)
+        {
+            this.db = new ApplicationDbContext(options);
+        }
+        public ApplicationUnitOfWork(ApplicationDbContext context)
+        {
+            this.db = context;
+        }
 
 
         public IRepository<Airplane> Airplanes
@@ -130,7 +141,7 @@ namespace TicketBook.DataAccessLayer
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChangesAsync();
         }
     }
 }
