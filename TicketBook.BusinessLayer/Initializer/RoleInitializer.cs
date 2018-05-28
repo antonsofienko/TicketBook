@@ -8,7 +8,7 @@ namespace TicketBook.BusinessLayer
 {
   public  class RoleInitializer
     {
-        public static async Task InitializeAsync(UserManager<ApplicationUser> userManger, RoleManager<IdentityRole> roleManager)
+        public static async Task InitializeAsync(UserManager<User> userManger, RoleManager<IdentityRole> roleManager)
         {
             string adminEmail = "admin@gmail.com";
             string password = "ZxcQwe!23";
@@ -24,7 +24,7 @@ namespace TicketBook.BusinessLayer
             }
             if(await userManger.FindByNameAsync(adminEmail) == null)
             {
-                ApplicationUser admin = new ApplicationUser
+                User admin = new User
                 {
                     Email = adminEmail,
                     UserName = adminEmail

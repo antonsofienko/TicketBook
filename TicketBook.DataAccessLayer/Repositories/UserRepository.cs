@@ -5,7 +5,7 @@ using TicketBook.DataAccessLayer.Repositories;
 
 namespace TicketBook.DataAccessLayer.Repositories
 {
-    public class UserRepository : RepositoryAbs<ApplicationUser>
+    public class UserRepository : RepositoryAbs<User>
     {
         public UserRepository(DbContext context) : base(context) { }
     }

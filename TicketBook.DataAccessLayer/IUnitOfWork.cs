@@ -12,9 +12,9 @@ namespace TicketBook.DataAccessLayer
         IRepository<City> Cities { get; }
         IRepository<Flight> Flights { get; }
         IRepository<Order> Orders { get; }
-        IRepository<Profile> Profiles { get; }
+        //IRepository<Profile> Profiles { get; }
         IRepository<Ticket> Tickets { get; }
-        IRepository<ApplicationUser> Users { get; }
+        IRepository<User> Users { get; }
 
         void Save();
     }

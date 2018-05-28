@@ -7,8 +7,8 @@ namespace TicketBook.Models
 {
     public class SearchInputViewModel
     {
-        public int DepartureCityId { get; set; }
-        public int ArrivalCityId { get; set; }
+        public Guid DepartureCityId { get; set; }
+        public Guid ArrivalCityId { get; set; }
         public DateTime? DepartureDate { get; set; }
         public string OrderField { get; set; }
         public string OrderDirection { get; set; }

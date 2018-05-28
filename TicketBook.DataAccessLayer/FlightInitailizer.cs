@@ -9,57 +9,57 @@ namespace TicketBook.DataAccessLayer
 {
     public class FlightsInitalizer
     {
-        public static async Task InitializeAsync(ApplicationDbContext db)
-        {
+        //public static async Task InitializeAsync(ApplicationDbContext db)
+        //{
 
-            DateTime date = DateTime.Now;
-            Random random = new Random();
+        //    DateTime date = DateTime.Now;
+        //    Random random = new Random();
 
-            int randomAirplane = 0;
-            int randomDepartureCity = 0;
-            int randomArrivalCity = 0;
-            int randomFlyTime = 0;
-            DataAccessLayer.DomainModel.Flight tempFlight;
-            for (int i = 0; i < 10; i++)
-            {
-                randomAirplane = random.Next(db.Airplanes.ToListAsync().Result.Count);
-                randomDepartureCity = random.Next(db.Cities.ToListAsync().Result.Count);
-                randomArrivalCity = random.Next(db.Cities.ToListAsync().Result.Count);
+        //    int randomAirplane = 0;
+        //    int randomDepartureCity = 0;
+        //    int randomArrivalCity = 0;
+        //    int randomFlyTime = 0;
+        //    DataAccessLayer.DomainModel.Flight tempFlight;
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        randomAirplane = random.Next(db.Airplanes.ToListAsync().Result.Count);
+        //        randomDepartureCity = random.Next(db.Cities.ToListAsync().Result.Count);
+        //        randomArrivalCity = random.Next(db.Cities.ToListAsync().Result.Count);
 
-                randomFlyTime = random.Next(12);
+        //        randomFlyTime = random.Next(12);
 
-                try
-                {
-                    tempFlight = new DataAccessLayer.DomainModel.Flight
-                    {
-                        AirplaneId = randomAirplane,
-                        Airplane = db.Airplanes.FindAsync(randomAirplane).Result,
+        //        try
+        //        {
+        //            tempFlight = new DataAccessLayer.DomainModel.Flight
+        //            {
+        //                AirplaneId = Guid.NewGuid(),
+        //                Airplane = db.Airplanes.FindAsync(randomAirplane).Result,
 
-                        ArrivalCityId = randomArrivalCity,
-                        ArrivalCity = db.Cities.FindAsync(randomArrivalCity).Result,
+        //                ArrivalCityId = Guid.NewGuid(),
+        //                ArrivalCity = db.Cities.FindAsync(randomArrivalCity).Result,
 
-                        DepartureCityId = randomDepartureCity,
-                        DepartureCity = db.Cities.FindAsync(randomDepartureCity).Result,
+        //                DepartureCityId = Guid.NewGuid(),
+        //                DepartureCity = db.Cities.FindAsync(randomDepartureCity).Result,
 
-                        ArivalTime = date.AddHours(randomFlyTime),
-                        DepartureTime = date,
+        //                ArivalTime = date.AddHours(randomFlyTime),
+        //                DepartureTime = date,
 
-                        AvailableTicket1 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace,
-                        AvailableTicket2 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace,
-                        AvailableTicket3 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace
-                    };
+        //                AvailableTicket1 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace,
+        //                AvailableTicket2 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace,
+        //                AvailableTicket3 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace
+        //            };
 
-                    db.Flights.Add(tempFlight);
+        //            db.Flights.Add(tempFlight);
 
-                   await  db.SaveAsync();
-                }
-                catch (Exception ex)
-                {
+        //           await  db.SaveAsync();
+        //        }
+        //        catch (Exception ex)
+        //        {
 
-                }
+        //        }
 
-                date.AddDays(random.Next(8));
-            }
-        }
+        //        date.AddDays(random.Next(8));
+        //    }
+       // }
     }
 }

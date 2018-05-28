@@ -11,14 +11,14 @@ using TicketBook.Data;
 namespace TicketBook.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180506140036_migration1")]
-    partial class migration1
+    [Migration("20180528204858_identityid")]
+    partial class identityid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
+                .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -129,7 +129,113 @@ namespace TicketBook.DataAccessLayer.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TicketBook.ApplicationUser", b =>
+            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Airplane", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("SeatingPlace");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Airplanes");
+                });
+
+            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.City", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Flight", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AirplaneId");
+
+                    b.Property<DateTime>("ArivalTime");
+
+                    b.Property<Guid>("ArrivalCityId");
+
+                    b.Property<int>("AvailableTicket1");
+
+                    b.Property<int>("AvailableTicket2");
+
+                    b.Property<int>("AvailableTicket3");
+
+                    b.Property<Guid>("DepartureCityId");
+
+                    b.Property<DateTime>("DepartureTime");
+
+                    b.Property<decimal>("TicketPrice1");
+
+                    b.Property<decimal>("TicketPrice2");
+
+                    b.Property<decimal>("TicketPrice3");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirplaneId");
+
+                    b.HasIndex("ArrivalCityId");
+
+                    b.HasIndex("DepartureCityId");
+
+                    b.ToTable("Flights");
+                });
+
+            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsPaid");
+
+                    b.Property<DateTime>("OrderDate");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Ticket", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ComfortLevel");
+
+                    b.Property<Guid>("FlightId");
+
+                    b.Property<Guid>("OrderId");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("SeatNumber");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("TicketBook.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -180,122 +286,6 @@ namespace TicketBook.DataAccessLayer.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Airplane", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CompanyName");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("SeatingPlace");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Airplanes");
-                });
-
-            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.City", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Flight", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AirplaneId");
-
-                    b.Property<DateTime>("ArivalTime");
-
-                    b.Property<int>("ArrivalCityId");
-
-                    b.Property<int>("AvaliableTicket");
-
-                    b.Property<int>("DepartureCityId");
-
-                    b.Property<DateTime>("DepartureTime");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AirplaneId");
-
-                    b.HasIndex("ArrivalCityId");
-
-                    b.HasIndex("DepartureCityId");
-
-                    b.ToTable("Flights");
-                });
-
-            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsPaid");
-
-                    b.Property<DateTime>("OrderDate");
-
-                    b.Property<int>("ProfileId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Profile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Age");
-
-                    b.Property<string>("Name");
-
-                    b.Property<bool>("Sex");
-
-                    b.Property<string>("Surname");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ComfortLevel");
-
-                    b.Property<int>("FlightId");
-
-                    b.Property<int>("OrderId");
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<int>("SeatNumber");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlightId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("Tickets");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -306,7 +296,7 @@ namespace TicketBook.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TicketBook.ApplicationUser")
+                    b.HasOne("TicketBook.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -314,7 +304,7 @@ namespace TicketBook.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TicketBook.ApplicationUser")
+                    b.HasOne("TicketBook.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -327,7 +317,7 @@ namespace TicketBook.DataAccessLayer.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TicketBook.ApplicationUser")
+                    b.HasOne("TicketBook.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -335,7 +325,7 @@ namespace TicketBook.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TicketBook.ApplicationUser")
+                    b.HasOne("TicketBook.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -361,10 +351,9 @@ namespace TicketBook.DataAccessLayer.Migrations
 
             modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Order", b =>
                 {
-                    b.HasOne("TicketBook.DataAccessLayer.DomainModel.Profile", "Profile")
+                    b.HasOne("TicketBook.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TicketBook.DataAccessLayer.DomainModel.Ticket", b =>

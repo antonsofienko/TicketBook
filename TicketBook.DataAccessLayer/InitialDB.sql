@@ -1,38 +1,38 @@
 ﻿
 
-INSERT dbo.Cities(Name)
-    VALUES ('Hong Kong'),  
-	       ('New York'),
-		   ('Mumbai'),
-		   ('Istanbul'),
-		   ('Moscow'),
-		   ('Tokyo'),
-		   ('Kyiv'),
-		   ('London')
+INSERT dbo.Cities(id,Name)
+    VALUES (NEWID ( ) ,'Hong Kong'),  
+	       (NEWID ( ) ,'New York'),
+		   (NEWID ( ) ,'Mumbai'),
+		   (NEWID ( ) ,'Istanbul'),
+		   (NEWID ( ) ,'Moscow'),
+		   (NEWID ( ) ,'Tokyo'),
+		   (NEWID ( ) ,'Kyiv'),
+		   (NEWID ( ) ,'London')
 GO 
 
 
-insert dbo.Airplanes( Name, SeatingPlace )
+insert dbo.Airplanes( Id, Name, SeatingPlace )
 values
-('Airbus  A320', 320),
-('Airbus  A320', 320),
-('Boeing  747', 250),
-('Boeing  747', 250),
-('Boeing  747', 250),
-('Boeing  747', 250),
-('Airbus  B-767',150),
-('Airbus  B-767',150),
-('Airbus  B-767',150),
-('Airbus  B-767',150)
+(NEWID ( ) ,'Airbus  A320', 320),
+(NEWID ( ) ,'Airbus  A320', 320),
+(NEWID ( ) ,'Boeing  747', 250),
+(NEWID ( ) ,'Boeing  747', 250),
+(NEWID ( ) ,'Boeing  747', 250),
+(NEWID ( ) ,'Boeing  747', 250),
+(NEWID ( ) ,'Airbus  B-767',150),
+(NEWID ( ) ,'Airbus  B-767',150),
+(NEWID ( ) ,'Airbus  B-767',150),
+(NEWID ( ) ,'Airbus  B-767',150)
 
 Go
 
 
-INSERT dbo.FLights(AirplaneId, ArivalTime, ArrivalCityId,DepartureCityId, DepartureTime, AvailableTicket1,TicketPrice1,AvailableTicket2,TicketPrice2,AvailableTicket3,TicketPrice3)
+INSERT dbo.FLights( ArivalTime, ArrivalCityId,DepartureCityId, DepartureTime, AvailableTicket1,TicketPrice1,AvailableTicket2,TicketPrice2,AvailableTicket3,TicketPrice3)
 VALUES
-(3,'05/26/2018 14:23:05',1,2,'05/26/2018 18:23:05',20,100,30,80,40,60)
+('05/26/2018 14:23:05',1,2,'05/26/2018 18:23:05',20,100,30,80,40,60)
 
 
-INSERT dbo.FLights(AirplaneId, ArivalTime, ArrivalCityId,DepartureCityId, DepartureTime, AvailableTicket1,TicketPrice1,AvailableTicket2,TicketPrice2,AvailableTicket3,TicketPrice3)
+INSERT dbo.FLights(  Id, AirplaneId,ArivalTime, ArrivalCityId,DepartureCityId, DepartureTime, AvailableTicket1,TicketPrice1,AvailableTicket2,TicketPrice2,AvailableTicket3,TicketPrice3)
 VALUES
-(1,'05/26/2018 14:23:05',1,1,'05/26/2018 18:23:05',20,100,30,80,40,60)
+(NEWID (),'69014bf4-d47c-4209-8613-00b8abbfaad9','05/26/2018 14:23:05','c15a3bf3-c4ba-491a-89bb-161da0fdd63b','4f9fd5c2-4ae9-438d-8f36-3d0117376f62','05/26/2018 18:23:05',20,100,30,80,40,60)

@@ -29,7 +29,7 @@ namespace TicketBook
 
                 try
                 {
-                    var userManger = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var userManger = services.GetRequiredService<UserManager<User>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     var dbContext = services.GetRequiredService<ApplicationDbContext>();
                     //var uowService = services.GetRequiredService<IUnitOfWork>();

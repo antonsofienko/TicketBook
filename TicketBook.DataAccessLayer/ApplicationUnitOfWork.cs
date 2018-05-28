@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using TicketBook.Data;
 using TicketBook.DataAccessLayer.DomainModel;
@@ -19,7 +20,7 @@ namespace TicketBook.DataAccessLayer
         private CityRepository cityRepository;
         private FlightRepository flightRepository;
         //private OrderedTicketRepository orderedTicketRepository;
-        private ProfileRepository profileRepository;
+        //private ProfileRepository profileRepository;
         private TicketRepository ticketRepository;
         private UserRepository userRepository;
         private OrderRepository orderRepository;
@@ -35,7 +36,21 @@ namespace TicketBook.DataAccessLayer
         }
 
 
+        public ApplicationUnitOfWork()
+        {
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Environment.CurrentDirectory);
+            builder.AddJsonFile("appsettings.json");
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("DefaultConnection");
 
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var options = optionsBuilder
+                .UseSqlServer(connectionString)
+                .Options;
+
+            this.db = new ApplicationDbContext(options);
+        }
         public IRepository<Airplane> Airplanes
         {
             get
@@ -72,17 +87,17 @@ namespace TicketBook.DataAccessLayer
             }
         }
 
-        public IRepository<Profile> Profiles
-        {
-            get
-            {
-                if (profileRepository == null)
-                {
-                    profileRepository = new ProfileRepository(db);
-                }
-                return profileRepository;
-            }
-        }
+        //public IRepository<Profile> Profiles
+        //{
+        //    get
+        //    {
+        //        if (profileRepository == null)
+        //        {
+        //            profileRepository = new ProfileRepository(db);
+        //        }
+        //        return profileRepository;
+        //    }
+        //}
 
         public IRepository<Ticket> Tickets
         {
@@ -96,7 +111,7 @@ namespace TicketBook.DataAccessLayer
             }
         }
 
-        public IRepository<ApplicationUser> Users
+        public IRepository<User> Users
         {
             get
             {

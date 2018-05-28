@@ -30,7 +30,7 @@ namespace TicketBook.Controllers.AdminPart
         }
 
         // GET: Airplanes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -70,7 +70,7 @@ namespace TicketBook.Controllers.AdminPart
         }
 
         // GET: Airplanes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null)
             {
@@ -90,7 +90,7 @@ namespace TicketBook.Controllers.AdminPart
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,SeatingPlace")] Airplane airplane)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,SeatingPlace")] Airplane airplane)
         {
             if (id != airplane.Id)
             {
@@ -121,7 +121,7 @@ namespace TicketBook.Controllers.AdminPart
         }
 
         // GET: Airplanes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null)
             {
@@ -141,7 +141,7 @@ namespace TicketBook.Controllers.AdminPart
         // POST: Airplanes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var airplane = await _context.Airplanes.SingleOrDefaultAsync(m => m.Id == id);
             _context.Airplanes.Remove(airplane);
@@ -149,7 +149,7 @@ namespace TicketBook.Controllers.AdminPart
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AirplaneExists(int id)
+        private bool AirplaneExists(Guid id)
         {
             return _context.Airplanes.Any(e => e.Id == id);
         }

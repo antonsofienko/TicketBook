@@ -31,11 +31,11 @@ namespace TicketBook.Controllers
         public ActionResult Search(SearchInputViewModel model)
         {
             var errorString = string.Empty;
-            if (model.DepartureCityId == -1)
+            if (model.DepartureCityId == Guid.Empty)
             {
                 errorString += "Select departure city. ";
             }
-            if (model.ArrivalCityId == -1)
+            if (model.ArrivalCityId == Guid.Empty)
             {
                 errorString += "Select arrival city. ";
             }

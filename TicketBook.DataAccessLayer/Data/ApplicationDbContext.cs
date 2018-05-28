@@ -6,23 +6,20 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TicketBook.DataAccessLayer.DomainModel;
 using TicketBook.DataAccessLayer;
+using Microsoft.Extensions.Configuration;
 
 namespace TicketBook.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
 
-            if (!Flights.Any())
-            {
-                InitalizeFlightTableByRandomValue();
-            }
-        }
-        public async Task InitalizeFlightTableByRandomValue()
-        {
-              await FlightsInitalizer.InitializeAsync(this);
+            //if (!Flights.Any())
+            //{
+            //    InitalizeFlightTableByRandomValue();
+            //}
         }
 
         public  async Task<int> SaveAsync()
@@ -36,7 +33,7 @@ namespace TicketBook.Data
         public DbSet<Order> Orders { get; set; }
 
         //DbSet<OrderedTicket> OrderedTickets { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
+        //public DbSet<Profile> Profiles { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         
 
@@ -66,9 +63,9 @@ namespace TicketBook.Data
            // ---------------------------
 
             builder.Entity<Order>()
-                .HasOne(p => p.Profile)
+                .HasOne(p => p.User)
                 .WithMany(o => o.Orders)
-                .HasForeignKey(k => k.ProfileId);
+                .HasForeignKey(k => k.UserId);
 
             builder.Entity<Ticket>()
                 .HasOne(p => p.Order)

@@ -16,7 +16,7 @@ namespace TicketBook.BusinessLayer.Services
             _uow = uow;
         }
 
-        public ICollection<Flight> FindFlights(int departureCityId, int arrivalCityId, DateTime departureDate)
+        public ICollection<Flight> FindFlights(Guid departureCityId, Guid arrivalCityId, DateTime departureDate)
         {
 
             var thisDay = departureDate.Date;
@@ -27,7 +27,7 @@ namespace TicketBook.BusinessLayer.Services
                                   flight.ArrivalCityId == arrivalCityId &&
                                   flight.DepartureTime >= thisDay &&
                                   flight.DepartureTime < nextDay
-                            select flight).ToList();
+                           select flight).ToList();
 
             foreach (var item in flights2.ToList())
             {

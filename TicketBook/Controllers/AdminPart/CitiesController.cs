@@ -31,7 +31,7 @@ namespace TicketBook.Controllers.AdminPart
         }
 
         // GET: Cities/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -71,7 +71,7 @@ namespace TicketBook.Controllers.AdminPart
         }
 
         // GET: Cities/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
@@ -91,7 +91,7 @@ namespace TicketBook.Controllers.AdminPart
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] City city)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name")] City city)
         {
             if (id != city.Id)
             {
@@ -122,7 +122,7 @@ namespace TicketBook.Controllers.AdminPart
         }
 
         // GET: Cities/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -142,7 +142,7 @@ namespace TicketBook.Controllers.AdminPart
         // POST: Cities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var city = await _context.Cities.SingleOrDefaultAsync(m => m.Id == id);
             _context.Cities.Remove(city);
@@ -150,7 +150,7 @@ namespace TicketBook.Controllers.AdminPart
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CityExists(int id)
+        private bool CityExists(Guid id)
         {
             return _context.Cities.Any(e => e.Id == id);
         }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TicketBook.DataAccessLayer.Migrations
 {
-    public partial class init16 : Migration
+    public partial class identityid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,9 +13,7 @@ namespace TicketBook.DataAccessLayer.Migrations
                 name: "Airplanes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyName = table.Column<string>(nullable: true),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     SeatingPlace = table.Column<int>(nullable: false)
                 },
@@ -64,32 +62,15 @@ namespace TicketBook.DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Cities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Profiles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Age = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Sex = table.Column<bool>(nullable: false),
-                    Surname = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Profiles", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,17 +180,41 @@ namespace TicketBook.DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    IsPaid = table.Column<bool>(nullable: false),
+                    OrderDate = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Flights",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AirplaneId = table.Column<int>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    AirplaneId = table.Column<Guid>(nullable: false),
                     ArivalTime = table.Column<DateTime>(nullable: false),
-                    ArrivalCityId = table.Column<int>(nullable: false),
-                    AvaliableTicket = table.Column<int>(nullable: false),
-                    DepartureCityId = table.Column<int>(nullable: false),
-                    DepartureTime = table.Column<DateTime>(nullable: false)
+                    ArrivalCityId = table.Column<Guid>(nullable: false),
+                    AvailableTicket1 = table.Column<int>(nullable: false),
+                    AvailableTicket2 = table.Column<int>(nullable: false),
+                    AvailableTicket3 = table.Column<int>(nullable: false),
+                    DepartureCityId = table.Column<Guid>(nullable: false),
+                    DepartureTime = table.Column<DateTime>(nullable: false),
+                    TicketPrice1 = table.Column<decimal>(nullable: false),
+                    TicketPrice2 = table.Column<decimal>(nullable: false),
+                    TicketPrice3 = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,49 +226,27 @@ namespace TicketBook.DataAccessLayer.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Flights_City_ArrivalCityId",
+                        name: "FK_Flights_Cities_ArrivalCityId",
                         column: x => x.ArrivalCityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Flights_City_DepartureCityId",
+                        name: "FK_Flights_Cities_DepartureCityId",
                         column: x => x.DepartureCityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsPaid = table.Column<bool>(nullable: false),
-                    OrderDate = table.Column<DateTime>(nullable: false),
-                    ProfileId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Order_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Tickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     ComfortLevel = table.Column<int>(nullable: false),
-                    FlightId = table.Column<int>(nullable: false),
-                    OrderId = table.Column<int>(nullable: false),
+                    FlightId = table.Column<Guid>(nullable: false),
+                    OrderId = table.Column<Guid>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     SeatNumber = table.Column<int>(nullable: false)
                 },
@@ -277,9 +260,9 @@ namespace TicketBook.DataAccessLayer.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tickets_Order_OrderId",
+                        name: "FK_Tickets_Orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -339,9 +322,9 @@ namespace TicketBook.DataAccessLayer.Migrations
                 column: "DepartureCityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_ProfileId",
-                table: "Order",
-                column: "ProfileId");
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_FlightId",
@@ -378,22 +361,19 @@ namespace TicketBook.DataAccessLayer.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Flights");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Airplanes");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Profiles");
+                name: "AspNetUsers");
         }
     }
 }

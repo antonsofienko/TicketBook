@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
@@ -8,7 +9,9 @@ namespace TicketBook.DataAccessLayer.DomainModel
 {
     public class City
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
         [InverseProperty("ArrivalCity")]
@@ -18,19 +21,19 @@ namespace TicketBook.DataAccessLayer.DomainModel
         public virtual ICollection<Flight> FligtsAsDeparture { get; set; }
 
 
-        private static int _amountOfField = 2;
-        public static City ParseCVSString(string flightInfo, DbContext db=null) 
-        {
-            var array = flightInfo.Split(';');
+       // private static int _amountOfField = 2;
+        //public static City ParseCVSString(string flightInfo, DbContext db=null) 
+        //{
+        //    var array = flightInfo.Split(';');
 
-            if (array.Length < _amountOfField)
-                throw new ArgumentException("Wrong input data");
+        //    if (array.Length < _amountOfField)
+        //        throw new ArgumentException("Wrong input data");
 
-            return new City
-            {
-                Id = array[0] == "" ? 0 : int.Parse(array[0]),
-                Name = array[1]
-            };
-        }
+        //    return new City
+        //    {
+        //        Id = array[0] == "" ? 0 : int.Parse(array[0]),
+        //        Name = array[1]
+        //    };
+        //}
     }
 }

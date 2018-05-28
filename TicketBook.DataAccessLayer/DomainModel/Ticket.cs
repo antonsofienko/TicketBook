@@ -7,17 +7,18 @@ namespace TicketBook.DataAccessLayer.DomainModel
 {
     public class Ticket
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         public decimal Price { get; set; }
 
-        public int FlightId { get; set; }
+        public Guid FlightId { get; set; }
 
         public int SeatNumber { get; set; }
 
         public virtual Flight Flight { get; set; }
 
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
         public virtual Order Order { get; set; }
-        public virtual int ComfortLevel { get; set; }
+        public int ComfortLevel { get; set; }
     }
 }

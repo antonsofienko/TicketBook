@@ -26,12 +26,12 @@ namespace TicketBook.Controllers.AdminPart
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Orders.Include(o => o.Profile);
+            var applicationDbContext = _context.Orders.Include(o => o.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -39,7 +39,7 @@ namespace TicketBook.Controllers.AdminPart
             }
 
             var order = await _context.Orders
-                .Include(o => o.Profile)
+                .Include(o => o.User)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
@@ -52,7 +52,7 @@ namespace TicketBook.Controllers.AdminPart
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id");
+            ViewData["ProfileId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -69,12 +69,12 @@ namespace TicketBook.Controllers.AdminPart
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id", order.ProfileId);
+            ViewData["ProfileId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
 
         // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace TicketBook.Controllers.AdminPart
             {
                 return NotFound();
             }
-            ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id", order.ProfileId);
+            ViewData["ProfileId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
 
@@ -95,7 +95,7 @@ namespace TicketBook.Controllers.AdminPart
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderDate,ProfileId,IsPaid")] Order order)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,OrderDate,ProfileId,IsPaid")] Order order)
         {
             if (id != order.Id)
             {
@@ -122,12 +122,12 @@ namespace TicketBook.Controllers.AdminPart
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProfileId"] = new SelectList(_context.Profiles, "Id", "Id", order.ProfileId);
+            ViewData["ProfileId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
 
         // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -135,7 +135,7 @@ namespace TicketBook.Controllers.AdminPart
             }
 
             var order = await _context.Orders
-                .Include(o => o.Profile)
+                .Include(o => o.User)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
@@ -148,7 +148,7 @@ namespace TicketBook.Controllers.AdminPart
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var order = await _context.Orders.SingleOrDefaultAsync(m => m.Id == id);
             _context.Orders.Remove(order);
@@ -156,7 +156,7 @@ namespace TicketBook.Controllers.AdminPart
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrderExists(int id)
+        private bool OrderExists(Guid id)
         {
             return _context.Orders.Any(e => e.Id == id);
         }
