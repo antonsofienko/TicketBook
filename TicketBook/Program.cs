@@ -31,7 +31,8 @@ namespace TicketBook
                 {
                     var userManger = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    var uowService = services.GetRequiredService<ApplicationUnitOfWork>();
+                    var dbContext = services.GetRequiredService<ApplicationDbContext>();
+                    //var uowService = services.GetRequiredService<IUnitOfWork>();
 
                     RoleInitializer.InitializeAsync(userManger, rolesManager);
                     //var context = services.GetRequiredService<ApplicationDbContext>();

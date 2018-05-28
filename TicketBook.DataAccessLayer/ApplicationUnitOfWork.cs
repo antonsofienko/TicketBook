@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,6 +33,7 @@ namespace TicketBook.DataAccessLayer
         {
             this.db = context;
         }
+
 
 
         public IRepository<Airplane> Airplanes

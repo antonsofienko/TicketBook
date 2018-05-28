@@ -36,43 +36,9 @@
                                                     <div class="panel-heading">Ordering</div>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <ol class="rounded">
-                                                        <li><a href="#">Contact information<input type="email" class="form-control" id="inputEmail" placeholder="Input email"></a></li>
-                                                        <li>
-                                                            <a href="#">
-                                                                Information about passenger
-                                                                <div class="container">
-                                                                    <div class="row">
-                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Surname">
-                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Name">
-                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Father name">
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">
-                                                                Payment method
-                                                                <div class="container">
-                                                                    <div class="row">
-                                                                        <div class="form-group">
-                                                                            <div class="btn-group" data-toggle="buttons">
-                                                                                <label class="btn btn-primary active">
-                                                                                    @Html.RadioButton("Pay", "BankCard", true,
-                                                                                       new { id = "IsBankCardPay" }) Credit card
-                                                                                </label>
-                                                                                <label class="btn btn-primary">
-                                                                                    @Html.RadioButton("Pay", "Cash",
-                                                                                    new { id = "IsCashPay" }) Cash
-                                                                                </label>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                    </ol>
+                                                    <div class="alert alert-danger">
+                                                        <strong>You can`t order ticket!</strong> Please log in.
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <div class="container">

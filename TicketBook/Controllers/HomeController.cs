@@ -52,7 +52,7 @@ namespace TicketBook.Controllers
             else
             {
                 var fligths = _airportService.FindFlights(model.DepartureCityId, model.ArrivalCityId, model.DepartureDate.Value);
-                return View(fligths);
+                return View("SearchResult",fligths);
             }
         }
 

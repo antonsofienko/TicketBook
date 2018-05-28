@@ -28,11 +28,11 @@ values
 Go
 
 
-INSERT dbo.FLights(AirplaneId, ArivalTime, ArrivalCityId,AvaliableTicket,DepartureCityId, DepartureTime)
+INSERT dbo.FLights(AirplaneId, ArivalTime, ArrivalCityId,DepartureCityId, DepartureTime, AvailableTicket1,TicketPrice1,AvailableTicket2,TicketPrice2,AvailableTicket3,TicketPrice3)
 VALUES
-(0,'05/26/2018 14:23:05',1,1,2,'05/26/2018 18:23:05')
+(3,'05/26/2018 14:23:05',1,2,'05/26/2018 18:23:05',20,100,30,80,40,60)
 
 
-INSERT dbo.FLights(AirplaneId, ArivalTime, ArrivalCityId,AvaliableTicket,DepartureCityId, DepartureTime)
+INSERT dbo.FLights(AirplaneId, ArivalTime, ArrivalCityId,DepartureCityId, DepartureTime, AvailableTicket1,TicketPrice1,AvailableTicket2,TicketPrice2,AvailableTicket3,TicketPrice3)
 VALUES
-(0,'05/26/2018 14:23:05',1,1,2,'05/26/2018 18:23:05')
+(1,'05/26/2018 14:23:05',1,1,'05/26/2018 18:23:05',20,100,30,80,40,60)
