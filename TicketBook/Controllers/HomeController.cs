@@ -28,20 +28,20 @@ namespace TicketBook.Controllers
             return View(cities);
         }
 
-        public ActionResult Search(SearchViewModel model)
+        public ActionResult Search(SearchInputViewModel model)
         {
             var errorString = string.Empty;
             if (model.DepartureCityId == -1)
             {
-                errorString += "Выберите город отправки ";
+                errorString += "Select departure city. ";
             }
             if (model.ArrivalCityId == -1)
             {
-                errorString += "Выберите город прибытия";
+                errorString += "Select arrival city. ";
             }
             if (model.DepartureDate == null)
             {
-                errorString += "Выберите дату";
+                errorString += "Select date ";
             }
 
             if (errorString != string.Empty)

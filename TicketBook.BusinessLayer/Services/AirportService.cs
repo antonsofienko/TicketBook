@@ -21,6 +21,8 @@ namespace TicketBook.BusinessLayer.Services
             get => _uow.Cities.AllEntities.ToList();
         }
 
+
+
         public ICollection<Flight> FindFlights(int departureCityId, int arrivalCityId, DateTime departureDate)
         {
             //if (!_uow.Flights.AllEntities.Any())

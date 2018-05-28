@@ -44,7 +44,9 @@ namespace TicketBook.DataAccessLayer
                         ArivalTime = date.AddHours(randomFlyTime),
                         DepartureTime = date,
 
-                        AvaliableTicket = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace
+                        AvailableTicket1 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace,
+                        AvailableTicket2 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace,
+                        AvailableTicket3 = db.Airplanes.FindAsync(randomAirplane).Result.SeatingPlace
                     };
 
                     db.Flights.Add(tempFlight);

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TicketBook.Models
 {
-    public class SearchViewModel
+    public class SearchInputViewModel
     {
         public int DepartureCityId { get; set; }
         public int ArrivalCityId { get; set; }

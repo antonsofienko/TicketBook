@@ -2,7 +2,7 @@
 @model IEnumerable<TicketBook.DataAccessLayer.DomainModel.Flight>
 
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "Search Result";
 }
 
 <h1>&nbsp;</h1>
@@ -12,7 +12,7 @@
         {
             <div class="alert alert-danger">
                 @((string)ViewBag.Error)
-                @Html.ActionLink("На главную", "Index", null, new { @class = "btn" })
+                @Html.ActionLink("Main page", "Index", null, new { @class = "btn" })
             </div>
         }
         else
@@ -28,42 +28,42 @@
                                     <h3>Рейс: @flight.DepartureCity.Name - @flight.ArrivalCity.Name</h3>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-info btn-lg" type="button" data-toggle="modal" data-target="#myModal" style="margin-top:15px; background:#14c91c;">Купить билет</button>
+                                    <button class="btn btn-info btn-lg" type="button" data-toggle="modal" data-target="#myModal" style="margin-top:15px; background:#14c91c;">Order ticket</button>
                                     <div id="myModal" class="modal fade">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <div class="panel-heading">Оформление заказа</div>
+                                                    <div class="panel-heading">Ordering</div>
                                                 </div>
                                                 <div class="modal-body">
                                                     <ol class="rounded">
-                                                        <li><a href="#">Контактные данные<input type="email" class="form-control" id="inputEmail" placeholder="Введите email"></a></li>
+                                                        <li><a href="#">Contact information<input type="email" class="form-control" id="inputEmail" placeholder="Input email"></a></li>
                                                         <li>
                                                             <a href="#">
-                                                                Информация о пассажире
+                                                                Information about passenger
                                                                 <div class="container">
                                                                     <div class="row">
-                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Фамилия">
-                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Имя">
-                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Отчество">
+                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Surname">
+                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Name">
+                                                                        <input type="text" class="form-control" id="inputFIO" placeholder="Father name">
                                                                     </div>
                                                                 </div>
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a href="#">
-                                                                Способ оплаты
+                                                                Payment method
                                                                 <div class="container">
                                                                     <div class="row">
                                                                         <div class="form-group">
                                                                             <div class="btn-group" data-toggle="buttons">
                                                                                 <label class="btn btn-primary active">
                                                                                     @Html.RadioButton("Pay", "BankCard", true,
-                                                                                       new { id = "IsBankCardPay" }) Банковской картой
+                                                                                       new { id = "IsBankCardPay" }) Credit card
                                                                                 </label>
                                                                                 <label class="btn btn-primary">
                                                                                     @Html.RadioButton("Pay", "Cash",
-                                                                                    new { id = "IsCashPay" }) Наличными в кассе
+                                                                                    new { id = "IsCashPay" }) Cash
                                                                                 </label>
                                                                             </div>
 
@@ -78,8 +78,8 @@
                                                     <div class="container">
                                                         <div class="row">
                                                             <div class="footer">
-                                                                <button type="button" class="btn btn-info">Купить</button>
-                                                                <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+                                                                <button type="button" class="btn btn-info">Buy</button>
+                                                                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
                                                     </div>
